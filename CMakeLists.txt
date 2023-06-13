@@ -7,11 +7,24 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_auto REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
+
+ament_auto_find_build_dependencies()
+
+include_directories(include)
+
+ament_auto_add_library(sirius_base SHARED src/sirius_base.cpp)
+rclcpp_components_register_nodes(sirius_base "sirius_base::SiriusBase")
+
+ament_auto_add_executable(sirius_base_node
+  src/sirius_base.cpp
+  src/sirius_base_node.cpp
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -25,4 +38,4 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_package()
+ament_auto_package()
