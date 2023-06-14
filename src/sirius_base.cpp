@@ -7,7 +7,7 @@ namespace sirius_base
 {
     SiriusBase::SiriusBase(const rclcpp::NodeOptions & options) : Node("sirius_base_node", options)
     {
-        pose_subscription_ = this->create_subscription<geometry_msgs::msg::Pose>("wheel_odom", 10, std::bind(&SiriusBase::pose_callback, this, std::placeholders::_1));
+        pose_subscription_ = this->create_subscription<geometry_msgs::msg::Pose>("wheel_odom", rclcpp::QoS(10).best_effort(), std::bind(&SiriusBase::pose_callback, this, std::placeholders::_1));
         
         odometry_publisher_ = this->create_publisher<nav_msgs::msg::Odometry>("odom", 10);
         timer_ = this->create_wall_timer(500ms, std::bind(&SiriusBase::process, this));
