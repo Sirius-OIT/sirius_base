@@ -15,6 +15,7 @@ namespace sirius_base
 
     void SiriusBase::pose_callback(geometry_msgs::msg::Pose::SharedPtr data){
         pose = *data;
+        RCLCPP_INFO(this->get_logger(),"data_X : %f", data->position.x);
         RCLCPP_INFO(this->get_logger(),"pose_X : %f", pose.position.x);
     }
 
